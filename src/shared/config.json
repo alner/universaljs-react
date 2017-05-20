@@ -1,0 +1,7 @@
+{
+  "WDS_PORT": 7000,
+  "PORT": 8000,
+  "STATIC_PATH": "/static",
+  "APP_SELECTOR": ".js-app",
+  "APP_NAME": "Hello App"
+}
