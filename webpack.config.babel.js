@@ -1,7 +1,7 @@
 // @flow
 import webpack from 'webpack'
 import path from 'path'
-import { WDS_PORT } from './src/shared/config'
+import { WDS_PORT } from './src/shared/config.json'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -37,6 +37,6 @@ export default {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),    
-  ]
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 }

@@ -10,7 +10,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 import App from './app'
 import helloReducer from './reducer/hello'
@@ -20,15 +21,18 @@ const { APP_SELECTOR } = config
 const MOUNT_EL = document.querySelector(APP_SELECTOR)
 const IS_PROD = process.env.NODE_ENV === 'production'
 
-const store = createStore(combineReducers({ hello: helloReducer }), 
-IS_PROD ? undefined : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancers = (IS_PROD ? null : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
+const store = createStore(combineReducers({ hello: helloReducer }),
+  composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 const wrapApp = (AppComponent, reduxStore) =>
-<Provider store={reduxStore}>
-  <AppContainer>
-    <AppComponent />
-  </AppContainer>
-</Provider>
+  <Provider store={reduxStore}>
+    <AppContainer>
+      <AppComponent />
+    </AppContainer>
+  </Provider>
 
 ReactDOM.render(wrapApp(App, store), MOUNT_EL)
 

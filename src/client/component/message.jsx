@@ -5,7 +5,7 @@ type Props = {
   message: String,
 }
 
-const Message = ({message}: Props) => 
+const Message = ({ message }: Props) =>
   <p>{message}</p>
 
 export default Message
